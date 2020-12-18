@@ -3,15 +3,19 @@ from sklearn.linear_model import SGDClassifier
 import numpy as np
 
 
-### Produced 78.4% accuracy on MNIST dataset.
-# ten SGD models, one to classify each number.
-# If multiple SGDs in the ensemble return true (multiple believe the number they are seeing is their number), return the first.
-#       Obviously this is a poor way to make decisions.
+
 class Sgd_collection(BaseEstimator):
     def __init__(self):
         self.SGD_Ensemble = []
 
-    def fit(self, X, Y=None):
+    def fit(self, X, Y):
+        """
+        Train the data on X and Y.
+
+        :param X: Training data.
+        :param Y: Training answers.
+        :return: Void, but the model is trained.
+        """
         for digit in range(10):
             binary = (Y == digit)
 
@@ -21,6 +25,12 @@ class Sgd_collection(BaseEstimator):
             self.SGD_Ensemble.append(sgd_c)
 
     def predict(self, X):
+        """
+        Predict on the examples.
+
+        :param X: Predicition data
+        :return: toRet, an array of predictions.
+        """
         toRet = []
         predictions = []
         for digit in range(10):
