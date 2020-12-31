@@ -9,7 +9,8 @@ A collection of 10 Stochastic Gradient Descent models from Scikit learn used to 
 # SGD_Ensemble
 ### OVO: 85.6% accuracy
 ### OVA: 83.7% accuracy
-The same collection of SGD models as in SGD_Collection but with and added feature of Eulers Number and the decision is made by a SGD model trained on all features.
+The same collection of SGD models as in SGD_Collection but with the added feature of Eulers Number.
+SGD_Ensemble is a stacked ensemble with the final predictor being another SGD model.
 
 OVO: One-V-One, a strategy to train a binary classifier to return true if one of two digits are present. This results in 45 individual classifiers and an improvement in accuracy.
 OVA: One-V-All, a strategy that trains a binary classifier to classify one digit. This results in 10 classifiers, one for each digit.
