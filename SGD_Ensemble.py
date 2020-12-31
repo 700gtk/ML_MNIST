@@ -32,6 +32,7 @@ class Sgd_Ensemble(BaseEstimator):
                     sgd_c = SGDClassifier(random_state=7)
                     sgd_c.fit(X, binary)
                     self.SGD_Ensemble.append(sgd_c)
+                    print('i:', i, ' j:', j)
         else:
             # Train ten classifiers for each digit.
             for digit in range(10):
