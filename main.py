@@ -7,8 +7,6 @@ import cv2
 import numpy as np
 # 0.8711874092240292 best score
 
-print('starting')
-
 ### Get data
 X, Y = sp.Read_in_data('Data/train.csv')
 X_test, _ = sp.Read_in_data('Data/test.csv', test=True)
@@ -38,12 +36,15 @@ print('read in data')
 
 ### Neural Net
 nn = nueralN.neuralNet()
-nn.train(X, Y)
+
+# nn.train(X, Y, 1, 30, 40)  # 93% accuracy
+# nn.train(X, Y, 3, 100, 100)  # 95.5% accuracy
+nn.train(X, Y, 3, 100, 40)
 
 
 predictions = nn.predict(X_test)
 ### Make a submission with this name and those predictions
-sp.predictions_to_submission('single_layer_MLP', predictions)
+sp.predictions_to_submission('multi_layer_MLP', predictions)
 
 
 

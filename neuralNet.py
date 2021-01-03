@@ -1,6 +1,7 @@
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
+import support as sp
 
 
 class neuralNet:
@@ -12,19 +13,33 @@ class neuralNet:
         x_train, x_test, y_train, y_test = train_test_split(x, y)
         return self.scaler.fit_transform(x_train), self.scaler.transform(x_test), y_train, y_test
 
-    def train(self, x, y):
+    def train(self, x, y, layers, neuron_count, epochs):
         ### build net
-        input = keras.layers.Input(shape=x[1:])
-        hidden_layer = keras.layers.Dense(30, activation="relu")(input)
-        out_put = keras.layers.Dense(10)(hidden_layer)
-        self.model = keras.Model(inputs=[input], outputs=[out_put])
+        self.model = keras.models.Sequential()
+        for iter in range(layers):
+            self.model.add(keras.layers.Dense(neuron_count, activation='relu'))
+
+        self.model.add(keras.layers.Dense(10, activation='softmax'))
 
         # get the data
         x_train, x_test, y_train, y_test = self.data_into_sets(x, y)
 
-        self.model.compile(loss='mse', optimizer=keras.optimizers.SGD(lr=.001))
+        # compile model
+        self.model.compile(loss='sparse_categorical_crossentropy', optimizer=keras.optimizers.SGD(lr=.001), metrics=["accuracy"])
 
-        history = self.model.fit(x_train, y_train, epochs=20, validation_data=(x_test, y_test))
+        #fit the model
+        self.model.fit(x_train, y_train, epochs=epochs, validation_data=(x_test, y_test))
+
 
     def predict(self, x):
-        return self.model.predict(self.scaler.transform(x))
+        list_of_weights_of_predictions = self.model.predict(self.scaler.transform(x))
+        best_answers = []
+        # iter = 0
+        for prediction_set in list_of_weights_of_predictions:
+            # prediction = prediction_set.tolist().index(max(prediction_set))
+            best_answers.append(prediction_set.tolist().index(max(prediction_set)))
+            # sp.Plot_digit(x[iter])
+            # iter += 1
+
+
+        return best_answers

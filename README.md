@@ -14,3 +14,7 @@ SGD_Ensemble is a stacked ensemble with the final predictor being another SGD mo
 
 OVO: One-V-One, a strategy to train a binary classifier to return true if one of two digits are present. This results in 45 individual classifiers and an improvement in accuracy.
 OVA: One-V-All, a strategy that trains a binary classifier to classify one digit. This results in 10 classifiers, one for each digit.
+
+# MLP Neural Net
+### 95.55% accuracy
+A Multi layer perceptron model. This uses dense hidden layers of perceptron models culminating in a softmax final layer to accurately classify digits.
