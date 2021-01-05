@@ -1,11 +1,11 @@
 import SGD_Ensemble
+from sklearn.model_selection import GridSearchCV
 import support as sp
 import neuralNet as nueralN
 from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import f1_score
 import cv2
 import numpy as np
-# 0.8711874092240292 best score
 
 ### Get data
 X, Y = sp.Read_in_data('Data/train.csv')
@@ -35,16 +35,30 @@ print('read in data')
 
 
 ### Neural Net
+# nn = nueralN.neuralNet(1, 30, 40)  # 93% accuracy
+# nn = nueralN.neuralNet(3, 100, 100)  # 95.5% accuracy
 nn = nueralN.neuralNet()
 
-# nn.train(X, Y, 1, 30, 40)  # 93% accuracy
-# nn.train(X, Y, 3, 100, 100)  # 95.5% accuracy
-nn.train(X, Y, 3, 100, 40)
+# nn.fit(X, Y, 1, 30, 40)  # 93% accuracy
+# nn.fit(X, Y, 3, 100, 100)  # 95.5% accuracy
+nn.fit(X, Y)
 
+## GridSearch
+## BEST parameters layers:3, lr: 0.1,neuron_count:1000
+# parameters = {
+#
+#   'layers': [1, 3, 5, 7, 11],
+#   'neuron_count': [50, 100, 500, 1000],
+#   'learning_rate': [.1, .001, .0001]
+#   }
+# gd = GridSearchCV(nn, parameters, scoring="accuracy")
+# gd.fit(X, Y)
+#
+# print('grid search best parameters', gd.best_params_)
 
 predictions = nn.predict(X_test)
 ### Make a submission with this name and those predictions
-sp.predictions_to_submission('multi_layer_MLP', predictions)
+sp.predictions_to_submission('grid_search_best_mlp_40_epochs', predictions)
 
 
 

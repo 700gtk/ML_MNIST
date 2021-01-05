@@ -16,5 +16,7 @@ OVO: One-V-One, a strategy to train a binary classifier to return true if one of
 OVA: One-V-All, a strategy that trains a binary classifier to classify one digit. This results in 10 classifiers, one for each digit.
 
 # MLP Neural Net
+### 97.22% accuracy after grid search
 ### 95.55% accuracy
 A Multi layer perceptron model. This uses dense hidden layers of perceptron models culminating in a softmax final layer to accurately classify digits.
+Grid search was run over different numbers of layers, neurons per layer and learning rate. The results were significant. This could be further capitalized on through even narrower gridsearches. GridsearchCV from sklearn was used and the neural net class was configured to work with it.
